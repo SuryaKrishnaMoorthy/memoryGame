@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Memory Game</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="text/javascript" src="main.js">
-    </script>
-  </head>
-  <body>
-    <div class="container">
-        <header>
-            <h1>Memory Game</h1>
-        </header>
 
-        <section class="score-panel">
-          <ul>
-            <li>Score:<span class="scoreValue">0</span> </li>
-            <li>Moves:<span class="moves">0</span> Move(s)</li>
-            <li>Time elapsed:<div class="timer"></div></li>
-          </ul>
-        </section>
-        <div class="gameBoard">
-          
+<head>
+  <meta charset="utf-8">
+  <title>Memory Game</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer type="text/javascript" src="main.js">
+  </script>
+</head>
 
-        </div>
-
+<body>
+  <div class="container">
+    <header>
+      <h1>Memory Game</h1>
+    </header>
+    <img src="" alt="">
+    <section class="score-panel">
+      <ul>
+        <li>Score: <span class="scoreValue">0</span> </li>
+        <li>Moves: <span class="moves">0</span> Move(s)</li>
+        <li>Time elapsed:
+          <div class="timer"></div>
+        </li>
+      </ul>
+    </section>
+    
+    <div class="gameBoard gridContainer">
 
     </div>
-  </body>
+
+    <div id="game-settings" class="game-window">
+        <img class="select-level-image" src="./assets/select_a_level.png" alt="select a level">
+        <br>
+        <button value="0" class="button-style easy">EASY</button>
+        <br>
+        <button value="1" class="button-style medium">MEDIUM</button>
+        <br>
+        <button value="2" class="button-style hard">HARD</button>
+    </div>
+
+
+  </div>
+</body>
+
 </html>
