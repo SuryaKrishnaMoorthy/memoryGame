@@ -72,6 +72,6 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus {
   width: 150px;
   height: 150px;
 }
-.cardImage{
+.catImageHide{
   display:none;
 }
