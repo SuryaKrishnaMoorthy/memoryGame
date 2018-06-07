@@ -8,7 +8,7 @@ const congratsDetails = (currentScore, matchedCards, currentMoves, totalTime, co
     <div class="congrats-content">
         <p>Your Score:  <span class="result-font currentScore">${currentScore} points,</span></p>
         <p>You matched <span class="result-font matched-cards">${matchedCards.length} cards,</span></p>
-        <p>using <span class="result-font moves"> ${count/2} moves,</span></p>
+        <p>using <span class="result-font moves"> ${count} moves,</span></p>
         <p>in <span class="result-font total-time"> ${totalTime}</span>
     </div>
     <div class="saveDetails">
@@ -29,12 +29,12 @@ const congratsDetails = (currentScore, matchedCards, currentMoves, totalTime, co
 const improveDetails = (currentScore, matchedCards, currentMoves, totalTime, count) => {
     return `
 <div class="improveDetails">
-    <h2>Hmmmm...Focus more..You can do it!!!</h2>
-    <a class="close-icon" href=#>X</a>
+    <h2>Hmm... Focus.. You can do it!!!</h2>
+    // <a class="close-icon" href=#>X</a>
     <div class="congrats-content">
         <p>Your Score:  <span class="result-font currentScore">${currentScore} points,</span></p>
         <p>You matched <span class="result-font matched-cards">${matchedCards.length} cards,</span></p>
-        <p>using <span class="result-font moves"> ${count/2} moves,</span></p>
+        <p>using <span class="result-font moves"> ${count} moves,</span></p>
         <p>in <span class="result-font total-time"> ${totalTime}</span>
     </div>
     <div class="saveDetails">

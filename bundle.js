@@ -93,7 +93,6 @@ function showCatOnClick() {
     let count=0;
     cards.forEach((card) => {
         card.addEventListener("click", (event) => {
-            count = count++;
             let catImage = (event.target.querySelector(".catImage"));
             // Ensure only 2 card is selected at a time
             if (flippedCards.length < 2) {
@@ -108,6 +107,7 @@ function showCatOnClick() {
 
                     // Save the second card
                 } else if (flippedCards.length === 1 && canStartTurn) {
+                    count = count+1;
                     if (!catImage.classList.contains("match")) {
                         currentMoves = (currentMoves <= 0) ? 0 : currentMoves - 1;
                         moves.innerHTML = currentMoves;
@@ -169,7 +169,7 @@ function startTimer() {
             minutes = minutes + 1;
             seconds = 0;
         }
-    }, 1000)
+    }, 990)
 }
 
 // Stop the timer
@@ -310,7 +310,7 @@ const congratsDetails = (currentScore, matchedCards, currentMoves, totalTime, co
     <div class="congrats-content">
         <p>Your Score:  <span class="result-font currentScore">${currentScore} points,</span></p>
         <p>You matched <span class="result-font matched-cards">${matchedCards.length} cards,</span></p>
-        <p>using <span class="result-font moves"> ${count/2} moves,</span></p>
+        <p>using <span class="result-font moves"> ${count} moves,</span></p>
         <p>in <span class="result-font total-time"> ${totalTime}</span>
     </div>
     <div class="saveDetails">
@@ -331,12 +331,12 @@ const congratsDetails = (currentScore, matchedCards, currentMoves, totalTime, co
 const improveDetails = (currentScore, matchedCards, currentMoves, totalTime, count) => {
     return `
 <div class="improveDetails">
-    <h2>Hmmmm...Focus more..You can do it!!!</h2>
-    <a class="close-icon" href=#>X</a>
+    <h2>Hmm... Focus.. You can do it!!!</h2>
+    // <a class="close-icon" href=#>X</a>
     <div class="congrats-content">
         <p>Your Score:  <span class="result-font currentScore">${currentScore} points,</span></p>
         <p>You matched <span class="result-font matched-cards">${matchedCards.length} cards,</span></p>
-        <p>using <span class="result-font moves"> ${count/2} moves,</span></p>
+        <p>using <span class="result-font moves"> ${count} moves,</span></p>
         <p>in <span class="result-font total-time"> ${totalTime}</span>
     </div>
     <div class="saveDetails">

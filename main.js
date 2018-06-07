@@ -92,7 +92,6 @@ function showCatOnClick() {
     let count=0;
     cards.forEach((card) => {
         card.addEventListener("click", (event) => {
-            count = count++;
             let catImage = (event.target.querySelector(".catImage"));
             // Ensure only 2 card is selected at a time
             if (flippedCards.length < 2) {
@@ -107,6 +106,7 @@ function showCatOnClick() {
 
                     // Save the second card
                 } else if (flippedCards.length === 1 && canStartTurn) {
+                    count = count+1;
                     if (!catImage.classList.contains("match")) {
                         currentMoves = (currentMoves <= 0) ? 0 : currentMoves - 1;
                         moves.innerHTML = currentMoves;
@@ -168,7 +168,7 @@ function startTimer() {
             minutes = minutes + 1;
             seconds = 0;
         }
-    }, 1000)
+    }, 990)
 }
 
 // Stop the timer
