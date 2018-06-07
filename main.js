@@ -16,7 +16,7 @@ levelButton.forEach(button => {
                 moves.innerHTML = 20;
                 break;
             case "2":
-                moves.innerHTML = 10;
+                moves.innerHTML = 1;
                 break;
             default:
                 break;
@@ -24,7 +24,6 @@ levelButton.forEach(button => {
 
         gameWindow.style.display = "none";
         populateBoard(duplicatedImages);
-
         showCatOnClick();
         startTimer();
     })
@@ -43,7 +42,7 @@ function createBoard(levelNumber) {
         let gameBoard = document.querySelector(".gameBoard");
         let card = document.createElement("div");
         card.classList.add("card");
-        card.style.backgroundImage = `url("./assets/squirrel_pencil.jpg")`;
+        card.style.backgroundImage = `url("./assets/cardImage.jpg")`;
         gameBoard.appendChild(card);
     }
 }
@@ -68,12 +67,15 @@ function populateBoard(duplicatedImages) {
     let shuffledArray = shuffleArray(duplicatedImages);
     cards.forEach((card, index) => {
         let imagePath = `./assets/${shuffledArray[index]}`;
-        card.innerHTML = `<img class="catImage"  src="${imagePath}" width="150" height="150">`;
+        card.innerHTML = `<img class="catImage"  src="${imagePath}" width="250" height="150">`;
     })
-    //hides the cat images after a second
+
+    //hide the cat images after a second
     setTimeout(hideCats, 500);
     gameWindow.style.display = "none";
 }
+
+showScore();
 
 // Show the cards when clicked
 
@@ -87,9 +89,10 @@ function showCatOnClick() {
     let currentMoves = parseInt(movesValue);
     let score = document.querySelector(".scoreValue").textContent;
     let currentScore = parseInt(score);
-
+    let count=0;
     cards.forEach((card) => {
         card.addEventListener("click", (event) => {
+            count = count+1
             let catImage = (event.target.querySelector(".catImage"));
             // Ensure only 2 card is selected at a time
             if (flippedCards.length < 2) {
@@ -143,7 +146,9 @@ function showCatOnClick() {
                     }
                 }
             }
-            showResult(currentMoves, currentScore);
+            setTimeout(function() {
+                showResult(currentMoves, currentScore,count);
+            }, 500);
             // console.log(currentMoves)
         })
     })
@@ -172,23 +177,119 @@ function stopTimer() {
 }
 
 // Open the resultForm
-function showResult(currentMoves, currentScore) {
+function showResult(currentMoves, currentScore,count) {
     let matchedCards = document.querySelectorAll(".match");
     let totalTime = document.querySelector(".timer").textContent;
-    let resultWindow = document.querySelector(".result-window");
+    let resultWindow = document.createElement("div");
+    resultWindow.classList.add("result-window");
     if (currentMoves === 0 || matchedCards.length === 16) {
         stopTimer();
-        if (matchedCards.length === 16) {
-            resultWindow.innerHTML = template.congratsDetails(currentScore, matchedCards, currentMoves, totalTime);
-        } else {
-            resultWindow.innerHTML = template.improveDetails(currentScore, matchedCards, currentMoves, totalTime);
-        }
-        let name = document.createElement("input");
-        name.classList.add("playerName");
-        let checkbox = document.querySelector(".saveName");
-        if (checkbox.checked) {
-            document.querySelector(".saveDetails").append(name);
-        }
+        document.querySelector(".container-fluid").appendChild(resultWindow);
 
+        if (matchedCards.length === 16) {
+            resultWindow.innerHTML = template.congratsDetails(currentScore, matchedCards, currentMoves, totalTime,count);
+            isChecked(currentScore);
+        } else {
+            resultWindow.innerHTML = template.improveDetails(currentScore, matchedCards, currentMoves, totalTime,count);
+            isChecked(currentScore);
+        }
+        refresh();
+        closeTab();
     }
+}
+
+function isChecked(currentScore) {
+    let checkbox = document.querySelector(".saveName");
+    let name = document.querySelector(".name");
+    checkbox.addEventListener('change', function(event) {
+        event.preventDefault()
+        let isChecked = checkbox.checked;
+
+        if (isChecked) {
+            name.style.display = 'block'
+            storeScore(currentScore);
+        } else {
+            name.style.display = 'none'
+            // storeScore(currentScore);
+        }
+    })
+}
+
+
+function showScore() {
+    const players = JSON.parse(localStorage.getItem("game"));
+    let tbody = document.querySelector("tbody");
+    if (tbody.hasChildNodes()) {
+        while (tbody.firstChild) {
+            tbody.removeChild(tbody.firstChild);
+        }
+    }
+    let i = 0;
+    let playerNames = sortScore(players);
+    console.log(playerNames)
+    for (let playerName of playerNames) {
+        // for (let key in players) {
+        i++;
+        let tr = document.createElement("tr");
+        let th = document.createElement("th")
+        th.setAttribute("scope", "row");
+        th.textContent = i;
+        let td1 = document.createElement("td");
+        td1.innerHTML = playerName[0];
+        let td2 = document.createElement("td");
+        td2.innerHTML = playerName[1];
+        tr.appendChild(th);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tbody.appendChild(tr);
+    }
+}
+
+function storeScore(currentScore) {
+    const players = JSON.parse(localStorage.getItem("game"));
+    let save = document.querySelector(".save");
+    save.addEventListener("click", () => {
+        let name = document.querySelector("#name").value;
+        if (!players) {
+            let players = {};
+            players[name] = currentScore;
+            localStorage.setItem("game", JSON.stringify(players));
+        }
+        if (players[name]) {
+            players[name] = parseInt(players[name]) < currentScore ? currentScore : parseInt(players[name]);
+        } else {
+            players[name] = currentScore;
+        }
+        localStorage.setItem("game", JSON.stringify(players));
+        let saveWindow = document.querySelector(".saveDetails");
+        saveWindow.style.display = 'none';
+        showScore();
+    });
+}
+
+
+function refresh() {
+    let playAgain = document.querySelector(".play-button");
+    playAgain.addEventListener("click", () => {
+        location.reload(true);
+    })
+}
+
+function closeTab() {
+    let close = document.querySelector(".close-icon");
+    close.addEventListener("click", () => {
+        closeWindow();
+    })
+}
+
+function sortScore(players) {
+    var sortable = [];
+    for (let name in players) {
+        sortable.push([name, players[name]]);
+    }
+
+    sortable.sort(function(a, b) {
+        return b[1] - a[1];
+    });
+    return sortable;
 }

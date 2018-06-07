@@ -17,7 +17,7 @@ levelButton.forEach(button => {
                 moves.innerHTML = 20;
                 break;
             case "2":
-                moves.innerHTML = 10;
+                moves.innerHTML = 1;
                 break;
             default:
                 break;
@@ -25,7 +25,6 @@ levelButton.forEach(button => {
 
         gameWindow.style.display = "none";
         populateBoard(duplicatedImages);
-
         showCatOnClick();
         startTimer();
     })
@@ -44,7 +43,7 @@ function createBoard(levelNumber) {
         let gameBoard = document.querySelector(".gameBoard");
         let card = document.createElement("div");
         card.classList.add("card");
-        card.style.backgroundImage = `url("./assets/squirrel_pencil.jpg")`;
+        card.style.backgroundImage = `url("./assets/cardImage.jpg")`;
         gameBoard.appendChild(card);
     }
 }
@@ -69,12 +68,15 @@ function populateBoard(duplicatedImages) {
     let shuffledArray = shuffleArray(duplicatedImages);
     cards.forEach((card, index) => {
         let imagePath = `./assets/${shuffledArray[index]}`;
-        card.innerHTML = `<img class="catImage"  src="${imagePath}" width="150" height="150">`;
+        card.innerHTML = `<img class="catImage"  src="${imagePath}" width="250" height="150">`;
     })
-    //hides the cat images after a second
+
+    //hide the cat images after a second
     setTimeout(hideCats, 500);
     gameWindow.style.display = "none";
 }
+
+showScore();
 
 // Show the cards when clicked
 
@@ -88,9 +90,10 @@ function showCatOnClick() {
     let currentMoves = parseInt(movesValue);
     let score = document.querySelector(".scoreValue").textContent;
     let currentScore = parseInt(score);
-
+    let count=0;
     cards.forEach((card) => {
         card.addEventListener("click", (event) => {
+            count = count+1
             let catImage = (event.target.querySelector(".catImage"));
             // Ensure only 2 card is selected at a time
             if (flippedCards.length < 2) {
@@ -144,7 +147,9 @@ function showCatOnClick() {
                     }
                 }
             }
-            showResult(currentMoves, currentScore);
+            setTimeout(function() {
+                showResult(currentMoves, currentScore,count);
+            }, 500);
             // console.log(currentMoves)
         })
     })
@@ -173,25 +178,121 @@ function stopTimer() {
 }
 
 // Open the resultForm
-function showResult(currentMoves, currentScore) {
+function showResult(currentMoves, currentScore,count) {
     let matchedCards = document.querySelectorAll(".match");
     let totalTime = document.querySelector(".timer").textContent;
-    let resultWindow = document.querySelector(".result-window");
+    let resultWindow = document.createElement("div");
+    resultWindow.classList.add("result-window");
     if (currentMoves === 0 || matchedCards.length === 16) {
         stopTimer();
-        if (matchedCards.length === 16) {
-            resultWindow.innerHTML = template.congratsDetails(currentScore, matchedCards, currentMoves, totalTime);
-        } else {
-            resultWindow.innerHTML = template.improveDetails(currentScore, matchedCards, currentMoves, totalTime);
-        }
-        let name = document.createElement("input");
-        name.classList.add("playerName");
-        let checkbox = document.querySelector(".saveName");
-        if (checkbox.checked) {
-            document.querySelector(".saveDetails").append(name);
-        }
+        document.querySelector(".container-fluid").appendChild(resultWindow);
 
+        if (matchedCards.length === 16) {
+            resultWindow.innerHTML = template.congratsDetails(currentScore, matchedCards, currentMoves, totalTime,count);
+            isChecked(currentScore);
+        } else {
+            resultWindow.innerHTML = template.improveDetails(currentScore, matchedCards, currentMoves, totalTime,count);
+            isChecked(currentScore);
+        }
+        refresh();
+        closeTab();
     }
+}
+
+function isChecked(currentScore) {
+    let checkbox = document.querySelector(".saveName");
+    let name = document.querySelector(".name");
+    checkbox.addEventListener('change', function(event) {
+        event.preventDefault()
+        let isChecked = checkbox.checked;
+
+        if (isChecked) {
+            name.style.display = 'block'
+            storeScore(currentScore);
+        } else {
+            name.style.display = 'none'
+            // storeScore(currentScore);
+        }
+    })
+}
+
+
+function showScore() {
+    const players = JSON.parse(localStorage.getItem("game"));
+    let tbody = document.querySelector("tbody");
+    if (tbody.hasChildNodes()) {
+        while (tbody.firstChild) {
+            tbody.removeChild(tbody.firstChild);
+        }
+    }
+    let i = 0;
+    let playerNames = sortScore(players);
+    console.log(playerNames)
+    for (let playerName of playerNames) {
+        // for (let key in players) {
+        i++;
+        let tr = document.createElement("tr");
+        let th = document.createElement("th")
+        th.setAttribute("scope", "row");
+        th.textContent = i;
+        let td1 = document.createElement("td");
+        td1.innerHTML = playerName[0];
+        let td2 = document.createElement("td");
+        td2.innerHTML = playerName[1];
+        tr.appendChild(th);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tbody.appendChild(tr);
+    }
+}
+
+function storeScore(currentScore) {
+    const players = JSON.parse(localStorage.getItem("game"));
+    let save = document.querySelector(".save");
+    save.addEventListener("click", () => {
+        let name = document.querySelector("#name").value;
+        if (!players) {
+            let players = {};
+            players[name] = currentScore;
+            localStorage.setItem("game", JSON.stringify(players));
+        }
+        if (players[name]) {
+            players[name] = parseInt(players[name]) < currentScore ? currentScore : parseInt(players[name]);
+        } else {
+            players[name] = currentScore;
+        }
+        localStorage.setItem("game", JSON.stringify(players));
+        let saveWindow = document.querySelector(".saveDetails");
+        saveWindow.style.display = 'none';
+        showScore();
+    });
+}
+
+
+function refresh() {
+    let playAgain = document.querySelector(".play-button");
+    playAgain.addEventListener("click", () => {
+        location.reload(true);
+    })
+}
+
+function closeTab() {
+    let close = document.querySelector(".close-icon");
+    close.addEventListener("click", () => {
+        closeWindow();
+    })
+}
+
+function sortScore(players) {
+    var sortable = [];
+    for (let name in players) {
+        sortable.push([name, players[name]]);
+    }
+
+    sortable.sort(function(a, b) {
+        return b[1] - a[1];
+    });
+    return sortable;
 }
 
 },{"./scripts/data":2,"./scripts/template":3}],2:[function(require,module,exports){
@@ -199,7 +300,8 @@ let images = ["100.jpg", "101.jpg", "200.jpg", "201.jpg", "202.jpg", "204.jpg", 
 module.exports = images;
 
 },{}],3:[function(require,module,exports){
-const congratsDetails = (currentScore, matchedCards, currentMoves, totalTime) => {
+const congratsDetails = (currentScore, matchedCards, currentMoves, totalTime, count) => {
+
     return `
 <div class="congratsDetails">
     <h2>Congratulations!!!</h2>
@@ -208,19 +310,25 @@ const congratsDetails = (currentScore, matchedCards, currentMoves, totalTime) =>
     <div class="congrats-content">
         <p>Your Score:  <span class="result-font currentScore">${currentScore} points,</span></p>
         <p>You matched <span class="result-font matched-cards">${matchedCards.length} cards,</span></p>
-        <p>using <span class="result-font moves"> ${currentMoves} moves,</span></p>
+        <p>using <span class="result-font moves"> ${count/2} moves,</span></p>
         <p>in <span class="result-font total-time"> ${totalTime}</span>
     </div>
     <div class="saveDetails">
         <label for="saveName">Do you want to save your score?
         </label>
         <input type="checkbox" class="saveName" name="saveName" id="saveName" value="name">
+        <div class="name" style="display:none;">
+            <label for="name">Enter your name: </label>
+            <input type="text" id="name" class="userName" name="name"  placeholder="Enter your name">
+            <input type="button" class="save" value="Save">
+        </div>
     </div>
+    <br>
     <input type="button" class="result-font play-button" name="playAgainButton" value="Play Again">
 </div>`
 }
 
-const improveDetails = (currentScore, matchedCards, currentMoves, totalTime) => {
+const improveDetails = (currentScore, matchedCards, currentMoves, totalTime, count) => {
     return `
 <div class="improveDetails">
     <h2>Hmmmm...Focus more..You can do it!!!</h2>
@@ -228,20 +336,27 @@ const improveDetails = (currentScore, matchedCards, currentMoves, totalTime) => 
     <div class="congrats-content">
         <p>Your Score:  <span class="result-font currentScore">${currentScore} points,</span></p>
         <p>You matched <span class="result-font matched-cards">${matchedCards.length} cards,</span></p>
-        <p>using <span class="result-font moves"> ${16-currentMoves} moves,</span></p>
+        <p>using <span class="result-font moves"> ${count/2} moves,</span></p>
         <p>in <span class="result-font total-time"> ${totalTime}</span>
     </div>
     <div class="saveDetails">
         <label for="saveName">Do you want to save your score?
         </label>
         <input type="checkbox" class="saveName" name="saveName" id="saveName" value="name">
+        <div class="name" style="display:none;">
+            <label for="name">Enter your name: </label>
+            <input type="text" id="name" class="userName" name="name" placeholder="Enter your name">
+            <input type="button" class="save" value="Save">
+        </div>
     </div>
+    <br>
     <input type="button" class="result-font play-button" name="playAgainButton" value="Play Again">
 </div>`
 }
+
 module.exports = {
     congratsDetails,
-    improveDetails
+    improveDetails,
 }
 
 },{}]},{},[1]);

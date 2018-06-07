@@ -4,17 +4,58 @@
 
 body {
     margin: 0 auto;
-    background: #464447;
+    background: #FCFBFB;
     color: #E8F1F2;
+    font-family: 'Pacifico', cursive;
 }
+
+.jumbotron-fluid {
+    padding-top: 0px;
+    padding-bottom: 25px;
+}
+
+/* .container {
+    background-image: url("http://www.guoguiyan.com/data/out/157/69248816-puzzle-hd-wallpapers.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    font-family: 'Pacifico', cursive;
+} */
 
 a:focus, button:focus, input:focus, textarea:focus, select:focus {
     outline: none !important;
 }
 
+h1 {
+    color: rgb(19, 54, 95);
+    font-size: 70px;
+    font-weight: 400;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-shadow: 10px 10px 5px grey;
+}
+
+/* header img{
+    display: block;
+    width: 50%;
+    margin: auto;
+} */
+
+.container-fluid .score-panel, .score-board {
+    /* float: right; */
+    color: #E8F1F2;
+    width: 100%;
+    border: 3px solid white;
+    border-radius: 25px;
+    background-color: rgb(19, 54, 95);
+}
+
 ul {
     font-size: 30px;
+    list-style-type: none;
+    padding-left: 12px;
 }
+
 
 .game-window {
     width: fit-content;
@@ -65,7 +106,8 @@ ul {
 
 .gridContainer {
     width: 50%;
-    margin: auto;
+    height: 100%;
+    /* margin: auto 7% auto auto; */
     display: grid;
     grid-template-rows: repeat(4, 1fr);
     grid-template-columns: repeat(4, 1fr);
@@ -73,12 +115,45 @@ ul {
 }
 
 .card {
-    width: 150px;
+    width: 250px;
     height: 150px;
+    border-radius: 10px;
+    box-shadow: 10px 10px 5px grey;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 140px;
+}
+
+.catImage {
+    border-radius: 10px;
 }
 
 .catImageHide {
     display: none;
+}
+
+.result-window {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.congratsDetails, .improveDetails {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 6px solid #D1D1D1;
+    border-style: outset;
+    border-radius: 25px;
+    padding: 60px 20px;
+    background: url("https://i.pinimg.com/originals/80/40/b5/8040b5ff91ce8c3f153beebab39d584f.gif");
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* media queries */
@@ -94,11 +169,12 @@ ul {
     }
     .game-window {
         width: 50%;
-        height: 200px;;
+        height: 200px;
+        ;
         margin: auto;
         position: fixed;
     }
-    .game-window img{
+    .game-window img {
         width: 200px;
     }
     .gridContainer {
@@ -106,7 +182,7 @@ ul {
         position: fixed;
         grid-gap: 10px;
     }
-    .card {
+    .card, .catImage {
         width: 90px;
         height: 90px;
     }
@@ -116,5 +192,21 @@ ul {
         font-size: 10px;
         border-radius: 9px;
     }
-
+    .result-window {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .improveDetails, .congratsDetails {
+        border: 2px solid green;
+        width: 50%;
+        height: 200px;
+        ;
+        margin: auto;
+        position: fixed;
+    }
+    .improveDetails, .congratsDetails {
+        font-family: sans-serif;
+    }
 }

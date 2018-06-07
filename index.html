@@ -4,43 +4,72 @@
 <head>
     <meta charset="utf-8">
     <title>Memory Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script defer type="text/javascript" src="bundle.js">
     </script>
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <h1>Memory Game</h1>
-        </header>
-        <img src="" alt="">
-        <section class="score-panel">
-            <ul>
-                <li>Score: <span class="scoreValue">0</span> </li>
-                <li>Moves: <span class="moves">0</span> Move(s)</li>
-                <li>Time elapsed: <span class="timer"></span></li>
-            </ul>
-        </section>
+    <div class="heading">
+        <div class="jumbotron jumbotron-fluid">
+            <h1 align="center">Memory Game</h1>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="gameBoard gridContainer">
 
-        <div class="gameBoard gridContainer">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <section class="score-panel">
+                            <ul>
+                                <li>Score: <span class="scoreValue">0</span> </li>
+                                <li>Moves left: <span class="moves">0</span> move(s)</li>
+                                <br>
+                                <li><i class="fas fa-clock fa-2x"></i> <span class="timer"></span></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                        <section>
+                            <table class="table table-dark rounded">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="game-settings" class="game-window">
             <img class="select-level-image" src="./assets/select_a_level.png" alt="select a level">
             <br>
-            <button value="0" class="button-style easy">EASY</button>
+            <button value="0" class="btn btn-primary button-style easy">EASY</button>
             <br>
-            <button value="1" class="button-style medium">MEDIUM</button>
+            <button value="1" class="btn btn-primary button-style medium">MEDIUM</button>
             <br>
-            <button value="2" class="button-style hard">HARD</button>
+            <button value="2" class="btn btn-primary button-style hard">HARD</button>
         </div>
 
-        <div class="result-window">
-        </div>
     </div>
 </body>
-
 
 </html>
