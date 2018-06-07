@@ -16,7 +16,7 @@ levelButton.forEach(button => {
                 moves.innerHTML = 20;
                 break;
             case "2":
-                moves.innerHTML = 1;
+                moves.innerHTML = 10;
                 break;
             default:
                 break;
@@ -92,7 +92,7 @@ function showCatOnClick() {
     let count=0;
     cards.forEach((card) => {
         card.addEventListener("click", (event) => {
-            count = count+1
+            count = count++;
             let catImage = (event.target.querySelector(".catImage"));
             // Ensure only 2 card is selected at a time
             if (flippedCards.length < 2) {
