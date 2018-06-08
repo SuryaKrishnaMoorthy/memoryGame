@@ -1,5 +1,6 @@
 let images = require("./scripts/data");
 let template = require("./scripts/template");
+console.log(images);
 
 createBoard(16);
 let cards = Array.from(document.querySelectorAll(".card"));
@@ -16,7 +17,7 @@ levelButton.forEach(button => {
                 moves.innerHTML = 20;
                 break;
             case "2":
-                moves.innerHTML = 10;
+                moves.innerHTML = 3;
                 break;
             default:
                 break;
@@ -67,7 +68,7 @@ function populateBoard(duplicatedImages) {
     let shuffledArray = shuffleArray(duplicatedImages);
     cards.forEach((card, index) => {
         let imagePath = `./assets/${shuffledArray[index]}`;
-        card.innerHTML = `<img class="catImage"  src="${imagePath}" width="250" height="150">`;
+        card.innerHTML = `<img class="catImage"  src="${imagePath}" width="200" height="130">`;
     })
 
     //hide the cat images after a second
@@ -89,7 +90,7 @@ function showCatOnClick() {
     let currentMoves = parseInt(movesValue);
     let score = document.querySelector(".scoreValue").textContent;
     let currentScore = parseInt(score);
-    let count=0;
+    let count = 0;
     cards.forEach((card) => {
         card.addEventListener("click", (event) => {
             let catImage = (event.target.querySelector(".catImage"));
@@ -106,7 +107,7 @@ function showCatOnClick() {
 
                     // Save the second card
                 } else if (flippedCards.length === 1 && canStartTurn) {
-                    count = count+1;
+                    count = count + 1;
                     if (!catImage.classList.contains("match")) {
                         currentMoves = (currentMoves <= 0) ? 0 : currentMoves - 1;
                         moves.innerHTML = currentMoves;
@@ -121,7 +122,7 @@ function showCatOnClick() {
                     if (firstGuess.getAttribute("src") === secondGuess.getAttribute("src")) {
                         firstGuess.classList.add("match");
                         secondGuess.classList.add("match");
-                        currentScore = currentScore + 100;
+                        currentScore = currentScore + 200;
                         document.querySelector(".scoreValue").innerHTML = currentScore;
                         canStartTurn = false;
                         setTimeout(() => {
@@ -131,7 +132,6 @@ function showCatOnClick() {
                         // Reset the cards array after a match for next set of cards
                         flippedCards = [];
                     } else {
-
                         // Show the second card and then flip it.
                         catImage.classList.remove("catImageHide");
                         setTimeout(function() {
@@ -147,7 +147,7 @@ function showCatOnClick() {
                 }
             }
             setTimeout(function() {
-                showResult(currentMoves, currentScore,count);
+                showResult(currentMoves, currentScore, count);
             }, 500);
             // console.log(currentMoves)
         })
@@ -162,13 +162,14 @@ let timeElapsed;
 
 function startTimer() {
     timeElapsed = setInterval(() => {
-        timer.innerHTML = `${minutes} min ${seconds} sec`;
         seconds = seconds + 1;
+        timer.innerHTML = `${minutes} min ${seconds} sec`;
+        // seconds = seconds + 1;
         if (seconds === 60) {
             minutes = minutes + 1;
             seconds = 0;
         }
-    }, 990)
+    }, 998)
 }
 
 // Stop the timer
@@ -177,7 +178,7 @@ function stopTimer() {
 }
 
 // Open the resultForm
-function showResult(currentMoves, currentScore,count) {
+function showResult(currentMoves, currentScore, count) {
     let matchedCards = document.querySelectorAll(".match");
     let totalTime = document.querySelector(".timer").textContent;
     let resultWindow = document.createElement("div");
@@ -187,14 +188,16 @@ function showResult(currentMoves, currentScore,count) {
         document.querySelector(".container-fluid").appendChild(resultWindow);
 
         if (matchedCards.length === 16) {
-            resultWindow.innerHTML = template.congratsDetails(currentScore, matchedCards, currentMoves, totalTime,count);
+            resultWindow.innerHTML = template.congratsDetails(currentScore, matchedCards, currentMoves, totalTime, count);
             isChecked(currentScore);
+            carousel(images);
         } else {
-            resultWindow.innerHTML = template.improveDetails(currentScore, matchedCards, currentMoves, totalTime,count);
+            resultWindow.innerHTML = template.improveDetails(currentScore, matchedCards, currentMoves, totalTime, count);
             isChecked(currentScore);
+            carousel(images);
         }
         refresh();
-        closeTab();
+        // closeTab();
     }
 }
 
@@ -212,6 +215,7 @@ function isChecked(currentScore) {
             name.style.display = 'none'
             // storeScore(currentScore);
         }
+        refresh();
     })
 }
 
@@ -226,7 +230,7 @@ function showScore() {
     }
     let i = 0;
     let playerNames = sortScore(players);
-    console.log(playerNames)
+
     for (let playerName of playerNames) {
         // for (let key in players) {
         i++;
@@ -236,7 +240,8 @@ function showScore() {
         th.textContent = i;
         let td1 = document.createElement("td");
         td1.innerHTML = playerName[0];
-        let td2 = document.createElement("td");
+        let td2 = document.createElement("td")
+        td2.style.color = "sandybrown";
         td2.innerHTML = playerName[1];
         tr.appendChild(th);
         tr.appendChild(td1);
@@ -292,4 +297,13 @@ function sortScore(players) {
         return b[1] - a[1];
     });
     return sortable;
+}
+
+function carousel(images) {
+    let slideShowButton = document.querySelector(".show-slides");
+    console.log(slideShowButton)
+    slideShowButton.addEventListener("click", () => {
+        document.querySelector(".container-fluid").innerHTML = template.slideShow(images);
+        refresh();
+    });
 }
