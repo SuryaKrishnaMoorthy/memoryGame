@@ -1,6 +1,7 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 let images = require("./scripts/data");
 let template = require("./scripts/template");
+console.log(images);
 
 createBoard(16);
 let cards = Array.from(document.querySelectorAll(".card"));
@@ -17,7 +18,7 @@ levelButton.forEach(button => {
                 moves.innerHTML = 20;
                 break;
             case "2":
-                moves.innerHTML = 10;
+                moves.innerHTML = 3;
                 break;
             default:
                 break;
@@ -68,7 +69,7 @@ function populateBoard(duplicatedImages) {
     let shuffledArray = shuffleArray(duplicatedImages);
     cards.forEach((card, index) => {
         let imagePath = `./assets/${shuffledArray[index]}`;
-        card.innerHTML = `<img class="catImage"  src="${imagePath}" width="250" height="150">`;
+        card.innerHTML = `<img class="catImage"  src="${imagePath}" width="200" height="130">`;
     })
 
     //hide the cat images after a second
@@ -90,7 +91,7 @@ function showCatOnClick() {
     let currentMoves = parseInt(movesValue);
     let score = document.querySelector(".scoreValue").textContent;
     let currentScore = parseInt(score);
-    let count=0;
+    let count = 0;
     cards.forEach((card) => {
         card.addEventListener("click", (event) => {
             let catImage = (event.target.querySelector(".catImage"));
@@ -107,7 +108,7 @@ function showCatOnClick() {
 
                     // Save the second card
                 } else if (flippedCards.length === 1 && canStartTurn) {
-                    count = count+1;
+                    count = count + 1;
                     if (!catImage.classList.contains("match")) {
                         currentMoves = (currentMoves <= 0) ? 0 : currentMoves - 1;
                         moves.innerHTML = currentMoves;
@@ -122,7 +123,7 @@ function showCatOnClick() {
                     if (firstGuess.getAttribute("src") === secondGuess.getAttribute("src")) {
                         firstGuess.classList.add("match");
                         secondGuess.classList.add("match");
-                        currentScore = currentScore + 100;
+                        currentScore = currentScore + 200;
                         document.querySelector(".scoreValue").innerHTML = currentScore;
                         canStartTurn = false;
                         setTimeout(() => {
@@ -132,7 +133,6 @@ function showCatOnClick() {
                         // Reset the cards array after a match for next set of cards
                         flippedCards = [];
                     } else {
-
                         // Show the second card and then flip it.
                         catImage.classList.remove("catImageHide");
                         setTimeout(function() {
@@ -148,7 +148,7 @@ function showCatOnClick() {
                 }
             }
             setTimeout(function() {
-                showResult(currentMoves, currentScore,count);
+                showResult(currentMoves, currentScore, count);
             }, 500);
             // console.log(currentMoves)
         })
@@ -163,13 +163,14 @@ let timeElapsed;
 
 function startTimer() {
     timeElapsed = setInterval(() => {
-        timer.innerHTML = `${minutes} min ${seconds} sec`;
         seconds = seconds + 1;
+        timer.innerHTML = `${minutes} min ${seconds} sec`;
+        // seconds = seconds + 1;
         if (seconds === 60) {
             minutes = minutes + 1;
             seconds = 0;
         }
-    }, 990)
+    }, 998)
 }
 
 // Stop the timer
@@ -178,7 +179,7 @@ function stopTimer() {
 }
 
 // Open the resultForm
-function showResult(currentMoves, currentScore,count) {
+function showResult(currentMoves, currentScore, count) {
     let matchedCards = document.querySelectorAll(".match");
     let totalTime = document.querySelector(".timer").textContent;
     let resultWindow = document.createElement("div");
@@ -188,14 +189,16 @@ function showResult(currentMoves, currentScore,count) {
         document.querySelector(".container-fluid").appendChild(resultWindow);
 
         if (matchedCards.length === 16) {
-            resultWindow.innerHTML = template.congratsDetails(currentScore, matchedCards, currentMoves, totalTime,count);
+            resultWindow.innerHTML = template.congratsDetails(currentScore, matchedCards, currentMoves, totalTime, count);
             isChecked(currentScore);
+            carousel(images);
         } else {
-            resultWindow.innerHTML = template.improveDetails(currentScore, matchedCards, currentMoves, totalTime,count);
+            resultWindow.innerHTML = template.improveDetails(currentScore, matchedCards, currentMoves, totalTime, count);
             isChecked(currentScore);
+            carousel(images);
         }
         refresh();
-        closeTab();
+        // closeTab();
     }
 }
 
@@ -213,6 +216,7 @@ function isChecked(currentScore) {
             name.style.display = 'none'
             // storeScore(currentScore);
         }
+        refresh();
     })
 }
 
@@ -227,7 +231,7 @@ function showScore() {
     }
     let i = 0;
     let playerNames = sortScore(players);
-    console.log(playerNames)
+
     for (let playerName of playerNames) {
         // for (let key in players) {
         i++;
@@ -237,7 +241,8 @@ function showScore() {
         th.textContent = i;
         let td1 = document.createElement("td");
         td1.innerHTML = playerName[0];
-        let td2 = document.createElement("td");
+        let td2 = document.createElement("td")
+        td2.style.color = "sandybrown";
         td2.innerHTML = playerName[1];
         tr.appendChild(th);
         tr.appendChild(td1);
@@ -295,36 +300,46 @@ function sortScore(players) {
     return sortable;
 }
 
+function carousel(images) {
+    let slideShowButton = document.querySelector(".show-slides");
+    console.log(slideShowButton)
+    slideShowButton.addEventListener("click", () => {
+        document.querySelector(".container-fluid").innerHTML = template.slideShow(images);
+        refresh();
+    });
+}
+
 },{"./scripts/data":2,"./scripts/template":3}],2:[function(require,module,exports){
 let images = ["100.jpg", "101.jpg", "200.jpg", "201.jpg", "202.jpg", "204.jpg", "206.jpg", "207.jpg"];
 module.exports = images;
 
 },{}],3:[function(require,module,exports){
-const congratsDetails = (currentScore, matchedCards, currentMoves, totalTime, count) => {
+let images = require("../scripts/data");
 
+const congratsDetails = (currentScore, matchedCards, currentMoves, totalTime, count) => {
     return `
 <div class="congratsDetails">
     <h2>Congratulations!!!</h2>
-    <a class="close-icon" href=#>X</a>
-    <h3>Great Job!!</h3>
-    <div class="congrats-content">
+    <div class="congrats-content text-center">
         <p>Your Score:  <span class="result-font currentScore">${currentScore} points,</span></p>
         <p>You matched <span class="result-font matched-cards">${matchedCards.length} cards,</span></p>
         <p>using <span class="result-font moves"> ${count} moves,</span></p>
         <p>in <span class="result-font total-time"> ${totalTime}</span>
     </div>
-    <div class="saveDetails">
+    <div class="saveDetails text-center">
         <label for="saveName">Do you want to save your score?
         </label>
         <input type="checkbox" class="saveName" name="saveName" id="saveName" value="name">
         <div class="name" style="display:none;">
             <label for="name">Enter your name: </label>
-            <input type="text" id="name" class="userName" name="name"  placeholder="Enter your name">
-            <input type="button" class="save" value="Save">
+            <input type="text" required id="name" class="userName" name="name"  placeholder="Enter your name">
+            <input type="button" class="save" style="sandybrown" value="Save">
         </div>
     </div>
     <br>
-    <input type="button" class="result-font play-button" name="playAgainButton" value="Play Again">
+    <input type="button" class="result-font play-button btn btn-dark" name="playAgainButton" value="Play Again">
+    <br>
+    <input type="button" class="show-slides result-font play-button btn btn-dark" name="" value="Show images">
 </div>`
 }
 
@@ -332,31 +347,93 @@ const improveDetails = (currentScore, matchedCards, currentMoves, totalTime, cou
     return `
 <div class="improveDetails">
     <h2>Hmm... Focus.. You can do it!!!</h2>
-    // <a class="close-icon" href=#>X</a>
     <div class="congrats-content">
         <p>Your Score:  <span class="result-font currentScore">${currentScore} points,</span></p>
         <p>You matched <span class="result-font matched-cards">${matchedCards.length} cards,</span></p>
         <p>using <span class="result-font moves"> ${count} moves,</span></p>
         <p>in <span class="result-font total-time"> ${totalTime}</span>
     </div>
-    <div class="saveDetails">
+    <div class="saveDetails text-center">
         <label for="saveName">Do you want to save your score?
         </label>
         <input type="checkbox" class="saveName" name="saveName" id="saveName" value="name">
         <div class="name" style="display:none;">
             <label for="name">Enter your name: </label>
-            <input type="text" id="name" class="userName" name="name" placeholder="Enter your name">
-            <input type="button" class="save" value="Save">
+            <input type="text" required id="name" class="userName" name="name" placeholder="Enter your name">
+            <input type="button" class="save" value="Save" style="sandybrown">
         </div>
     </div>
     <br>
-    <input type="button" class="result-font play-button" name="playAgainButton" value="Play Again">
+    <input type="button" class="result-font play-button btn btn-dark" name="playAgainButton" value="Play Again">
+    <br>
+    <input type="button" class="show-slides result-font play-button btn btn-dark" name="" value="Show images">
 </div>`
+}
+
+const slideShow = (images) => {
+    return `
+    <div class="row">
+      <div class="col-6 mx-auto">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="./assets/${images[0]}" height="600px" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="./assets/${images[1]}" height="600px" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="./assets/${images[2]}" height="600px" alt="Third slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="./assets/${images[3]}" height="600px" alt=" Fourth slide ">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="./assets/${images[4]}" height="600px" alt="Fifth slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="./assets/${images[5]}" height="600px" alt="Sixth slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="./assets/${images[6]}" height="600px" alt="Seventh slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="./assets/${images[7]}" height="600px" alt="Eighth slide">
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-6 mx-auto">
+          <input type="button" class="text-center result-font play-button btn btn-dark" name="playAgainButton" value="Play Again">
+        </div>
+    </div>
+`
 }
 
 module.exports = {
     congratsDetails,
     improveDetails,
+    slideShow
 }
 
-},{}]},{},[1]);
+},{"../scripts/data":2}]},{},[1]);
