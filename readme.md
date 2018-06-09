@@ -1,6 +1,6 @@
 MEMORY GAME
 ------------------------------
-It is concentration game.
+It is a concentration game.
 There are 16 cards faced down.
 The user is allowed to flip two cards at a time.
 The goal is to find maximum matching cards within a specific number of moves.

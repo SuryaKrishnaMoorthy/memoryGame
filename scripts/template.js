@@ -1,5 +1,3 @@
-let images = require("../scripts/data");
-
 const congratsDetails = (currentScore, matchedCards, currentMoves, totalTime, count) => {
     return `
 <div class="congratsDetails">
@@ -71,28 +69,28 @@ const slideShow = (images) => {
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="./assets/${images[0]}" height="600px" alt="First slide">
+                        <img class="d-block w-100" src="./assets/${images[0]}" height="550px" alt="First slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="./assets/${images[1]}" height="600px" alt="Second slide">
+                        <img class="d-block w-100" src="./assets/${images[1]}" height="550px" alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="./assets/${images[2]}" height="600px" alt="Third slide">
+                        <img class="d-block w-100" src="./assets/${images[2]}" height="550px" alt="Third slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="./assets/${images[3]}" height="600px" alt=" Fourth slide ">
+                        <img class="d-block w-100" src="./assets/${images[3]}" height="550px" alt=" Fourth slide ">
                   </div>
                   <div class="carousel-item">
-                    <img class="d-block w-100" src="./assets/${images[4]}" height="600px" alt="Fifth slide">
+                    <img class="d-block w-100" src="./assets/${images[4]}" height="550px" alt="Fifth slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="./assets/${images[5]}" height="600px" alt="Sixth slide">
+                        <img class="d-block w-100" src="./assets/${images[5]}" height="550px" alt="Sixth slide">
                   </div>
                   <div class="carousel-item">
-                    <img class="d-block w-100" src="./assets/${images[6]}" height="600px" alt="Seventh slide">
+                    <img class="d-block w-100" src="./assets/${images[6]}" height="550px" alt="Seventh slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="./assets/${images[7]}" height="600px" alt="Eighth slide">
+                        <img class="d-block w-100" src="./assets/${images[7]}" height="550px" alt="Eighth slide">
                   </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -107,8 +105,8 @@ const slideShow = (images) => {
       </div>
     </div>
     <div class="row">
-        <div class="col-6 mx-auto">
-          <input type="button" class="text-center result-font play-button btn btn-dark" name="playAgainButton" value="Play Again">
+        <div class="col-12 mt-3 image-play">
+          <input type="button" class="result-font play-button btn btn-dark" name="playAgainButton" value="Play Again">
         </div>
     </div>
 `

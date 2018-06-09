@@ -1,7 +1,24 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-let images = require("./scripts/data");
+let imagesArray = require("./scripts/data");
 let template = require("./scripts/template");
-console.log(images);
+
+/* Function to generate random 8 indexes for fetching images from the main images array */
+function getRandomIndex(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/* Select random 8 images */
+let imageSet = new Set();
+do {
+    imageSet.add(getRandomIndex(0, (imagesArray.length - 1)));
+}
+while (imageSet.size < 8);
+let images = new Array();
+imageSet.forEach(value => {
+    images.push(imagesArray[value]);
+});
 
 createBoard(16);
 let cards = Array.from(document.querySelectorAll(".card"));
@@ -18,7 +35,7 @@ levelButton.forEach(button => {
                 moves.innerHTML = 20;
                 break;
             case "2":
-                moves.innerHTML = 3;
+                moves.innerHTML = 4;
                 break;
             default:
                 break;
@@ -34,7 +51,7 @@ levelButton.forEach(button => {
 function hideCats() {
     let catImages = Array.from(document.querySelectorAll(".catImage"));
     catImages.forEach((catImage) => {
-        catImage.classList.add("catImageHide");
+        catImage.classList.add("catImageHide");''
     })
 }
 
@@ -310,12 +327,10 @@ function carousel(images) {
 }
 
 },{"./scripts/data":2,"./scripts/template":3}],2:[function(require,module,exports){
-let images = ["100.jpg", "101.jpg", "200.jpg", "201.jpg", "202.jpg", "204.jpg", "206.jpg", "207.jpg"];
+let images = ["100.jpg", "101.jpg", "200.jpg", "201.jpg", "202.jpg", "204.jpg", "206.jpg", "207.jpg", "300.jpg", "301.jpg", "302.jpg", "303.jpg", "304.jpg", "305.jpg", "307.jpg", "400.jpg", "401.jpg", "402.jpg", "403.jpg", "404.jpg", "405.jpg", "406.jpg", "408.jpg", "409.jpg", "410.jpg", "411.jpg", "412.jpg", "413.jpg", "414.jpg", "415.jpg", "416.jpg", "417.jpg", "418.jpg", "420.jpg", "421.jpg", "423.jpg", "424.jpg", "425.jpg", "426.jpg", "427.jpg", "431.jpg", "444.jpg", "450.jpg", "451.jpg", "500.jpg", "502.jpg", "503.jpg", "504.jpg", "506.jpg", "507.jpg", "508.jpg", "509.jpg", "511.jpg", "599.jpg"];
 module.exports = images;
 
 },{}],3:[function(require,module,exports){
-let images = require("../scripts/data");
-
 const congratsDetails = (currentScore, matchedCards, currentMoves, totalTime, count) => {
     return `
 <div class="congratsDetails">
@@ -387,28 +402,28 @@ const slideShow = (images) => {
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="./assets/${images[0]}" height="600px" alt="First slide">
+                        <img class="d-block w-100" src="./assets/${images[0]}" height="550px" alt="First slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="./assets/${images[1]}" height="600px" alt="Second slide">
+                        <img class="d-block w-100" src="./assets/${images[1]}" height="550px" alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="./assets/${images[2]}" height="600px" alt="Third slide">
+                        <img class="d-block w-100" src="./assets/${images[2]}" height="550px" alt="Third slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="./assets/${images[3]}" height="600px" alt=" Fourth slide ">
+                        <img class="d-block w-100" src="./assets/${images[3]}" height="550px" alt=" Fourth slide ">
                   </div>
                   <div class="carousel-item">
-                    <img class="d-block w-100" src="./assets/${images[4]}" height="600px" alt="Fifth slide">
+                    <img class="d-block w-100" src="./assets/${images[4]}" height="550px" alt="Fifth slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="./assets/${images[5]}" height="600px" alt="Sixth slide">
+                        <img class="d-block w-100" src="./assets/${images[5]}" height="550px" alt="Sixth slide">
                   </div>
                   <div class="carousel-item">
-                    <img class="d-block w-100" src="./assets/${images[6]}" height="600px" alt="Seventh slide">
+                    <img class="d-block w-100" src="./assets/${images[6]}" height="550px" alt="Seventh slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="./assets/${images[7]}" height="600px" alt="Eighth slide">
+                        <img class="d-block w-100" src="./assets/${images[7]}" height="550px" alt="Eighth slide">
                   </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -423,8 +438,8 @@ const slideShow = (images) => {
       </div>
     </div>
     <div class="row">
-        <div class="col-6 mx-auto">
-          <input type="button" class="text-center result-font play-button btn btn-dark" name="playAgainButton" value="Play Again">
+        <div class="col-12 mt-3 image-play">
+          <input type="button" class="result-font play-button btn btn-dark" name="playAgainButton" value="Play Again">
         </div>
     </div>
 `
@@ -436,4 +451,4 @@ module.exports = {
     slideShow
 }
 
-},{"../scripts/data":2}]},{},[1]);
+},{}]},{},[1]);

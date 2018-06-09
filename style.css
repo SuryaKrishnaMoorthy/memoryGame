@@ -182,7 +182,11 @@ li span {
 
 .carousel-inner{
     border-radius: 25px;
-    height: 595px;
+    height: 550px;
+}
+
+.image-play {
+    text-align: center;
 }
 
 /* media queries */

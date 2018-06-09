@@ -1,6 +1,23 @@
-let images = require("./scripts/data");
+let imagesArray = require("./scripts/data");
 let template = require("./scripts/template");
-console.log(images);
+
+/* Function to generate random 8 indexes for fetching images from the main images array */
+function getRandomIndex(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/* Select random 8 images */
+let imageSet = new Set();
+do {
+    imageSet.add(getRandomIndex(0, (imagesArray.length - 1)));
+}
+while (imageSet.size < 8);
+let images = new Array();
+imageSet.forEach(value => {
+    images.push(imagesArray[value]);
+});
 
 createBoard(16);
 let cards = Array.from(document.querySelectorAll(".card"));
@@ -17,7 +34,7 @@ levelButton.forEach(button => {
                 moves.innerHTML = 20;
                 break;
             case "2":
-                moves.innerHTML = 3;
+                moves.innerHTML = 4;
                 break;
             default:
                 break;
@@ -33,7 +50,7 @@ levelButton.forEach(button => {
 function hideCats() {
     let catImages = Array.from(document.querySelectorAll(".catImage"));
     catImages.forEach((catImage) => {
-        catImage.classList.add("catImageHide");
+        catImage.classList.add("catImageHide");''
     })
 }
 
