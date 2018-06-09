@@ -34,7 +34,7 @@ levelButton.forEach(button => {
                 moves.innerHTML = 20;
                 break;
             case "2":
-                moves.innerHTML = 4;
+                moves.innerHTML = 10;
                 break;
             default:
                 break;
