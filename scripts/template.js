@@ -56,8 +56,8 @@ const slideShow = (images) => {
     return `
     <div class="row">
       <div class="col-6 mx-auto">
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="1500">
+                <ul class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
@@ -66,7 +66,7 @@ const slideShow = (images) => {
                     <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
-                </ol>
+                </ul>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img class="d-block w-100" src="./assets/${images[0]}" height="550px" alt="First slide">
@@ -78,20 +78,20 @@ const slideShow = (images) => {
                         <img class="d-block w-100" src="./assets/${images[2]}" height="550px" alt="Third slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="./assets/${images[3]}" height="550px" alt=" Fourth slide ">
-                  </div>
-                  <div class="carousel-item">
-                    <img class="d-block w-100" src="./assets/${images[4]}" height="550px" alt="Fifth slide">
+                        <img class="d-block w-100" src="./assets/${images[3]}" height="550px" alt="Fourth slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="./assets/${images[4]}" height="550px" alt="Fifth slide">
                     </div>
                     <div class="carousel-item">
                         <img class="d-block w-100" src="./assets/${images[5]}" height="550px" alt="Sixth slide">
-                  </div>
-                  <div class="carousel-item">
-                    <img class="d-block w-100" src="./assets/${images[6]}" height="550px" alt="Seventh slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="./assets/${images[6]}" height="550px" alt="Seventh slide">
                     </div>
                     <div class="carousel-item">
                         <img class="d-block w-100" src="./assets/${images[7]}" height="550px" alt="Eighth slide">
-                  </div>
+                    </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>

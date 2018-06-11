@@ -141,6 +141,44 @@ li span {
 
 .catImage {
     border-radius: 10px;
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.image-animate {
+    /* Safari 4.0 - 8.0 */
+    -webkit-animation-name: example;
+    -webkit-animation-duration: 0.5s;
+    animation-name: example;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
+}
+
+.image-animate-show {
+    /* Safari 4.0 - 8.0 */
+    -webkit-animation-name: example;
+    -webkit-animation-duration: 0.5s;
+    animation-name: example;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+    from {}
+    to {
+        -webkit-transform: rotateY(180deg);
+    }
+}
+
+/* Standard syntax */
+@keyframes example {
+    from {}
+    to {
+        transform: rotateY(180deg);
+    }
 }
 
 .catImageHide {
@@ -180,7 +218,7 @@ li span {
     color: sandybrown;
 }
 
-.carousel-inner{
+.carousel-inner {
     border-radius: 25px;
     height: 550px;
 }
