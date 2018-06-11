@@ -13,7 +13,7 @@ This is a concentration game. It is a particularly good game for young children,
 5. After level selection, the user will able to see all the images for about half a  second.
 6. The user can also opt to save their name and highest score.
 
-##Did you know?!!
+## Did you know?!!
 
 - Memory games have been shown to help prevent some memory-related illnesses, such as Alzheimer’s disease.
 - The first World Memory Championships were held in 1991 in London.
@@ -21,24 +21,24 @@ This is a concentration game. It is a particularly good game for young children,
 
 ## What memory game looks like.
 
-# The start page looks like this.
+### The start page looks like this.
 
 ![start page](./assets/memoryGame-start-page.png)
 
-# When cards are matched it stays faced up.
+### When cards are matched it stays faced up.
 
 ![matched cards](./assets/memoryGame-cards-flip-up.png)
 
-# When game is finished a popup window displays the status.
+### When game is finished a popup window displays the status.
 
-![congrats board](./assets/memoryGame-cards-popup-window-1.png)
+![congrats board](./assets/memoryGame-popup-window-1.png)
 
-![improve board](./assets/memoryGame-cards-popup-window-2.png)
+![improve board](./assets/memoryGame-popup-window-2.png)
 
-# To save score check the checkbox.
+### To save score check the checkbox.
 
 ![save score](./assets/memoryGame-save-score.png)
 
-# To display images in the cards.
+### To display images in the cards.
 
 ![display images](./assets/memoryGame-slideshow.png)
