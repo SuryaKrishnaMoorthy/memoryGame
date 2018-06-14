@@ -282,13 +282,13 @@ levelButton.forEach(button => {
     button.addEventListener("click", (event) => {
         switch (event.target.value) {
             case "0":
-                moves.innerHTML = 35;
+                moves.innerHTML = 30;
                 break;
             case "1":
                 moves.innerHTML = 20;
                 break;
             case "2":
-                moves.innerHTML = 1;
+                moves.innerHTML = 10;
                 break;
             default:
                 break;
