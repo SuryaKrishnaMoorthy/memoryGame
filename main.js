@@ -266,7 +266,6 @@ function startTimer() {
     timeElapsed = setInterval(() => {
         seconds = seconds + 1;
         timer.innerHTML = `${minutes} min ${seconds} sec`;
-        // seconds = seconds + 1;
         if (seconds === 60) {
             minutes = minutes + 1;
             seconds = 0;

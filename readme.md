@@ -19,6 +19,11 @@ This is a concentration game. It is a particularly good game for young children,
 - The first World Memory Championships were held in 1991 in London.
 - Emerging research claims that a proficient working memory is a better determinate for individual intelligence than IQ score.
 
+##How to install?
+-Fork and clone the repo.
+-Run npm install in the repo.
+-Run npm run dev start.
+
 ## What memory game looks like.
 
 ### The start page looks like this.
