@@ -1,10 +1,11 @@
  # **Memory Game**
+ 
+ This is a concentration game. It is a particularly good game for young children, and a leisurely and fun game for adults. There are funny cat images which are relative to http status codes.
+
 ------------------------------
 ## About
 
 [Memory Game](http://memory-game-surya.surge.sh/)
-
-This is a concentration game. It is a particularly good game for young children, and a leisurely and fun game for adults. There are funny cat images which are relative to http status codes.
 
 1. There are 16 cards faced down.
 2. The user is allowed to flip two cards at a time.
